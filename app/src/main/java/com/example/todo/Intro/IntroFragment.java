@@ -38,16 +38,16 @@ public class IntroFragment extends Fragment {
         int pos = getArguments().getInt("pos");
         switch (pos){
             case 0:
-                view.setBackgroundColor(Color.LTGRAY);
-                image.setImageResource(R.drawable.jd);
+                view.setBackgroundColor(Color.DKGRAY);
+                image.setImageResource(R.drawable.neon1);
                 break;
             case 1:
                 view.setBackgroundColor(Color.YELLOW);
-                image.setImageResource(R.drawable.en);
+                image.setImageResource(R.drawable.deadpul);
                 break;
             case 2:
-                view.setBackgroundColor(Color.DKGRAY);
-                image.setImageResource(R.drawable.st);
+                view.setBackgroundColor(Color.LTGRAY);
+                image.setImageResource(R.drawable.en);
                 break;
     }
 }

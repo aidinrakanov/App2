@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.todo.MainActivity;
 import com.example.todo.R;
@@ -20,6 +21,7 @@ public class IntroActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     Button next, skip, start;
+    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class IntroActivity extends AppCompatActivity {
         next = findViewById(R.id.next);
         start = findViewById(R.id.startApp);
         skip = findViewById(R.id.skip);
+        image = findViewById(R.id.intro_image);
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
         skip.setOnClickListener(new View.OnClickListener() {
