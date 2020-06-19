@@ -4,29 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Intro.IntroActivity">
+    tools:context=".presentation.Intro.IntroActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <Button
-        android:id="@+id/next"
-        android:layout_width="100dp"
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/dots_indicator"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:dotsColor="@color/Dots"
+        app:dotsCornerRadius="8dp"
+        app:dotsSize="16dp"
+        app:dotsSpacing="4dp"
+        app:dotsWidthFactor="2.5"
         android:layout_alignParentBottom="true"
-        android:background="#0F7EAF"
-        android:text="next"
-        android:layout_margin="20dp"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
+        android:layout_marginBottom="100dp"
+        android:layout_centerInParent="true"
+        />
 
-    <Button        android:id="@+id/skip"
+
+    <Button
+        android:id="@+id/skip"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:background="#0F7EAF"
         android:text="skip"
         android:layout_margin="20dp"
@@ -34,16 +38,15 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/startApp"
-        android:layout_width="200dp"
+        android:id="@+id/next"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:background="#062AB8"
-        android:text="Start"
+        android:layout_alignParentRight="true"
+        android:background="#0F7EAF"
+        android:text="next"
         android:layout_margin="20dp"
         android:textColor="#FFFFFF"
-        android:visibility="gone"
         android:textSize="20sp" />
 
 
