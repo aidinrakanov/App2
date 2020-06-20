@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.example.todo.R;
+import com.example.todo.SharedPrefs;
 import com.example.todo.presentation.Intro.IntroActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,10 +25,13 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
+
     }
 
     private boolean isShown() {
-        SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        return preferences.getBoolean("isShown", false);
+        SharedPrefs sharedPrefs = new SharedPrefs();
+        return sharedPrefs.isShown();
     }
+
+
 }

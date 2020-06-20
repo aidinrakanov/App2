@@ -7,15 +7,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.ImageView;
 
+import com.example.todo.SharedPrefs;
 import com.example.todo.presentation.main.MainActivity;
 import com.example.todo.R;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -24,23 +20,23 @@ public class IntroActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     Button next, skip;
-    ImageView image;
     DotsIndicator dotsIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        dotsIndicator = findViewById(R.id.dots_indicator);
-        dotsIndicator.setViewPager(viewPager);
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new IntroPagerAdapter(getSupportFragmentManager()));
+        dotsIndicator = findViewById(R.id.dots_indicator);
+        dotsIndicator.setViewPager(viewPager);
         next = findViewById(R.id.next);
         skip = findViewById(R.id.skip);
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.start(IntroActivity.this);
+                saveIsShown();
                 finish();
             }
         });
@@ -48,7 +44,7 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 nexxt();
-                saveIsShown();
+
             }
         });
 
@@ -58,17 +54,26 @@ public class IntroActivity extends AppCompatActivity {
                 if (position == IntroPagerAdapter.PAGES_COUNT - 1) {
                     next.setText("Start");
                     skip.setVisibility(View.GONE);
+
                 } else {
                     next.setText("Next");
                     skip.setVisibility(View.VISIBLE);
                 } }});
     }
 
+    private void saveIsShown() {
+        SharedPrefs sp = new SharedPrefs();
+            sp.saveIsShown();
+
+    }
+
+
     private void nexxt() {
         if (viewPager.getCurrentItem() < IntroPagerAdapter.PAGES_COUNT - 1) {
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
         } else {
             MainActivity.start(IntroActivity.this);
+            saveIsShown();
             finish();
         }
     }
@@ -91,8 +96,5 @@ public class IntroActivity extends AppCompatActivity {
             return PAGES_COUNT;
         }
     }
-    private void saveIsShown(){
-        SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        preferences.edit().putBoolean("isShown", true).apply();
-    }
+
 }

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.todo.R;
 
 
@@ -22,7 +24,7 @@ public class IntroFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-    ImageView image;
+    LottieAnimationView lottie;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,22 +35,24 @@ public class IntroFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        image = view.findViewById(R.id.intro_image);
+       lottie = view.findViewById(R.id.intro_lottie);
+
+
 
         int pos = getArguments().getInt("pos");
         switch (pos){
             case 0:
                 view.setBackgroundColor(Color.DKGRAY);
-                image.setImageResource(R.drawable.neon1);
+                lottie.setAnimation(R.raw.loading);
                 break;
             case 1:
                 view.setBackgroundColor(Color.YELLOW);
-                image.setImageResource(R.drawable.deadpul);
+                lottie.setAnimation(R.raw.mobile);
                 break;
             case 2:
                 view.setBackgroundColor(Color.LTGRAY);
-                image.setImageResource(R.drawable.en);
+                lottie.setAnimation(R.raw.dancin);
                 break;
+        }
     }
-}
 }
