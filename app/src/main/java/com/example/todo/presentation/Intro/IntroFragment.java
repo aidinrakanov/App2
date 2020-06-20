@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.todo.R;
@@ -37,9 +37,7 @@ public class IntroFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
        lottie = view.findViewById(R.id.intro_lottie);
 
-
-
-        int pos = getArguments().getInt("pos");
+        int pos = getArguments().getInt(ARG_POSITION);
         switch (pos){
             case 0:
                 view.setBackgroundColor(Color.DKGRAY);

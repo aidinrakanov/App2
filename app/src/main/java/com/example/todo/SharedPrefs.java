@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPrefs {
+    private static final String SETTINGS_SP = "isShown";
     static SharedPreferences sharedPreferences;
     static Activity activity;
 
@@ -17,11 +18,11 @@ public class SharedPrefs {
     }
 
     public void saveIsShown() {
-        sharedPreferences.edit().putBoolean("isShown", true).apply();
+        sharedPreferences.edit().putBoolean(SETTINGS_SP, true).apply();
     }
 
     public static boolean isShown() {
         return sharedPreferences.getBoolean
-                ("isShown", false);
+                (SETTINGS_SP, false);
     }
 }
