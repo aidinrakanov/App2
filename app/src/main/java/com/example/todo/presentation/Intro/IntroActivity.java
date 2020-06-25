@@ -62,7 +62,7 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void saveIsShown() {
-        SharedPrefs sp = new SharedPrefs();
+        SharedPrefs sp = new SharedPrefs(this);
             sp.saveIsShown();
 
     }

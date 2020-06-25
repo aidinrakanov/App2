@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import com.example.todo.App;
 import com.example.todo.R;
 import com.example.todo.SharedPrefs;
 import com.example.todo.presentation.Intro.IntroActivity;
@@ -20,18 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (!isShown()) {
-            startActivity(new Intent(this, IntroActivity.class));
-            finish();
-            return;
-        }
-
-    }
-
-    private boolean isShown() {
-        SharedPrefs sharedPrefs = new SharedPrefs();
-        return sharedPrefs.isShown();
-    }
+        App.prefs.isShown();
+     }
 
 
 }

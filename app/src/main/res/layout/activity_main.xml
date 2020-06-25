@@ -96,7 +96,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
-
+        android:background="#ffffff"
         app:layout_constraintLeft_toLeftOf="@id/next_btn"
         app:layout_constraintTop_toBottomOf="@id/next_btn" />
 
