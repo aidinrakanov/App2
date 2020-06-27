@@ -20,7 +20,6 @@ public class SharedPrefs {
     }
 
     public boolean isShown() {
-        return sharedPreferences.getBoolean
-                (SETTINGS_SP, true);
+        return sharedPreferences.getBoolean(SETTINGS_SP, true);
     }
 }
