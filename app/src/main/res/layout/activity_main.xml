@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#32374E"
+    android:background="@drawable/gradient_main"
     android:padding="16dp"
     tools:context=".presentation.main.MainActivity">
 
@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/gradient02"
             app:cardCornerRadius="32dp"
             app:layout_constraintTop_toTopOf="parent" />
     </FrameLayout>
@@ -53,6 +52,60 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/category_text" />
 
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="100dp"
+        android:layout_height="10dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_text"
+        android:layout_marginTop="90dp"
+        android:layout_marginRight="20dp"
+        android:indeterminate="true"
+        android:background="@drawable/gradient_progress_bar"
+        />
+    <TextView
+        android:id="@+id/access_text_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/price_text_small"
+        app:layout_constraintRight_toRightOf="@+id/progress_bar"
+        app:layout_constraintLeft_toLeftOf="@+id/progress_bar"
+        android:text="Accessibility"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/price_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_text"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="80dp"
+        android:text="Free"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        />
+    <TextView
+        android:id="@+id/price_text_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="@id/price_text"
+        app:layout_constraintLeft_toLeftOf="@id/price_text"
+        app:layout_constraintTop_toBottomOf="@id/price_text"
+        android:textColor="#000000"
+        android:text="Price" />
+
+    <ImageView
+        android:id="@+id/acces_imageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/access_text_01"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_group"/>
+
     <ImageView
         android:id="@+id/img_heart"
         android:layout_width="40dp"
@@ -69,36 +122,80 @@
         android:layout_height="70dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/button_rounded"
-        android:text="NEXT"
+        android:text="N E X T"
         android:textColor="#FFFFFF"
-        android:textSize="25sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <me.bendik.simplerangeview.SimpleRangeView
         android:id="@+id/range_bar_price"
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
+        app:count="10"
+        app:end="10"
         app:layout_constraintRight_toRightOf="@id/next_btn"
-        app:layout_constraintTop_toBottomOf="@id/next_btn" />
+        app:layout_constraintTop_toBottomOf="@id/next_btn"
+        app:movable="true"
+        app:start="1" />
 
     <me.bendik.simplerangeview.SimpleRangeView
         android:id="@+id/range_bar_acces"
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintRight_toRightOf="@id/next_btn"
-        app:layout_constraintTop_toBottomOf="@id/range_bar_price" />
+        app:layout_constraintTop_toBottomOf="@id/range_bar_price"
+        app:count="10"
+        app:movable="true"
+        app:start="1"
+        app:end="10"/>
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:background="#ffffff"
         app:layout_constraintLeft_toLeftOf="@id/next_btn"
-        app:layout_constraintTop_toBottomOf="@id/next_btn" />
+        app:layout_constraintTop_toBottomOf="@id/next_btn"
+        android:entries="@array/type"
+        android:contextClickable="true"/>
+
+    <TextView
+        android:id="@+id/category_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/spinner"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp"
+        android:text="Category" />
+
+    <TextView
+        android:id="@+id/range_bar_price_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/range_bar_price"
+        app:layout_constraintBottom_toTopOf="@+id/range_bar_price"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp"
+        android:text="Price" />
+
+    <TextView
+        android:id="@+id/range_bar_acces_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/range_bar_acces"
+        app:layout_constraintBottom_toTopOf="@+id/range_bar_acces"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp"
+        android:text="Accessibility" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,6 +58,7 @@ public class BoredApiClient {
 
     public interface BaseCallback<T> {
         void onSuccess(T result);
+
         void onFailure(Exception exception);
     }
 
