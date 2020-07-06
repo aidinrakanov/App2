@@ -58,8 +58,8 @@
         android:layout_width="100dp"
         android:layout_height="10dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/middle_text"
-        android:layout_marginTop="90dp"
+        app:layout_constraintBottom_toTopOf="@+id/next_btn"
+        android:layout_marginBottom="160dp"
         android:layout_marginRight="20dp"
         android:progressDrawable="@drawable/gradient_progress_bar"
         />
@@ -78,9 +78,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/middle_text"
+        app:layout_constraintBottom_toTopOf="@+id/next_btn"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginBottom="150dp"
         android:text="Free"
         android:textStyle="bold"
         android:textSize="20sp"
@@ -132,7 +132,7 @@
         android:id="@+id/next_btn"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/button_rounded"
         android:text="N E X T"
         android:textColor="#FFFFFF"
@@ -141,36 +141,38 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <me.bendik.simplerangeview.SimpleRangeView
+    <com.google.android.material.slider.RangeSlider
+        app:thumbColor="#D1F178"
+        app:trackColorActive="#FFFFFF"
         android:id="@+id/range_bar_price"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        app:count="10"
-        app:end="10"
-        app:layout_constraintRight_toRightOf="@id/next_btn"
-        app:layout_constraintTop_toBottomOf="@id/next_btn"
-        app:movable="true"
-        app:start="1" />
-
-    <me.bendik.simplerangeview.SimpleRangeView
-        android:id="@+id/range_bar_acces"
+        app:values="@array/slider_val"
+        app:trackColorInactive="#88BF3B"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         app:layout_constraintRight_toRightOf="@id/next_btn"
+        app:layout_constraintTop_toBottomOf="@id/next_btn"
+        />
+
+    <com.google.android.material.slider.RangeSlider
+        app:thumbColor="#D1F178"
+        app:trackColorActive="#FFFFFF"
+        app:trackColorInactive="#88BF3B"
+        app:values="@array/slider_val"
+        android:id="@+id/range_bar_acces"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintRight_toRightOf="@id/next_btn"
         app:layout_constraintTop_toBottomOf="@id/range_bar_price"
-        app:count="10"
-        app:movable="true"
-        app:start="1"
-        app:end="10"/>
+        />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginTop="70dp"
-        android:background="#ffffff"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/spinner_round"
         app:layout_constraintLeft_toLeftOf="@id/next_btn"
         app:layout_constraintTop_toBottomOf="@id/next_btn"
         android:entries="@array/type"
@@ -194,7 +196,6 @@
         app:layout_constraintLeft_toLeftOf="@id/range_bar_price"
         app:layout_constraintBottom_toTopOf="@+id/range_bar_price"
         android:textColor="#ffffff"
-        android:layout_marginBottom="10dp"
         android:textSize="15sp"
         android:text="Price" />
 
@@ -205,7 +206,6 @@
         app:layout_constraintLeft_toLeftOf="@id/range_bar_acces"
         app:layout_constraintBottom_toTopOf="@+id/range_bar_acces"
         android:textColor="#ffffff"
-        android:layout_marginBottom="10dp"
         android:textSize="15sp"
         android:text="Accessibility" />
 

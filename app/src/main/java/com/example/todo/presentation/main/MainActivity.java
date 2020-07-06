@@ -1,11 +1,11 @@
 package com.example.todo.presentation.main;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,19 +20,25 @@ import com.example.todo.App;
 import com.example.todo.R;
 import com.example.todo.data.BoredApiClient;
 import com.example.todo.model.BoredAction;
-import com.example.todo.presentation.Intro.IntroActivity;
+import com.google.android.material.slider.RangeSlider;
 
-import me.bendik.simplerangeview.SimpleRangeView;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView category_text, category_spinner_text, middle_text, price_text,
             price_small, price_range_bar_text, access_text, access_range_bar_text, participant_text;
     private ImageView participant_image, heart_image;
-    private SimpleRangeView access_range_bar, price_range_bar;
+    private RangeSlider access_range_bar, price_range_bar;
     private ProgressBar progressBar;
     private Spinner spinner;
     private Button next_bt;
+    List<Float> price_bar;
+    private Float minPrice;
+    private Float maxPrice;
+    List<Float> access_bar;
+    private Float minAccess;
+    private Float maxAccess;
 
 
     public static void start(Context context) {
@@ -46,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Id();
         App.prefs.isShown();
+        PriceChange();
+        AccessChange();
 
     }
 
@@ -69,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void next_click(View view) {
-        App.boredApiClient.getAction(null, null, null,
-                null,null, new BoredApiClient.BoredActionCallback() {
+        App.boredApiClient.getAction(null, minPrice, maxPrice,
+                minAccess,maxAccess, new BoredApiClient.BoredActionCallback() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onSuccess(BoredAction boredAction) {
@@ -100,6 +107,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public void PriceChange(){
+        price_range_bar.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
+                price_bar = slider.getValues();
+                minPrice = price_bar.get(0);
+                maxPrice = price_bar.get(1);
+            }
+        });
+    }
+    public void AccessChange(){
+        access_range_bar.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
+                access_bar = slider.getValues();
+                minAccess = access_bar.get(0);
+                maxAccess = access_bar.get(1);
+            }
+        });
     }
 }
 
