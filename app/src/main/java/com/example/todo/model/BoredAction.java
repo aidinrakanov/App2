@@ -61,6 +61,16 @@ public class BoredAction {
     public void setAccessibility(Float accessibility) {
         this.accessibility = accessibility; }
 
+    public BoredAction(String key, String activity, String type, String link, Integer participants, Float price, Float accessibility) {
+        this.key = key;
+        this.activity = activity;
+        this.type = type;
+        this.link = link;
+        this.participants = participants;
+        this.price = price;
+        this.accessibility = accessibility;
+    }
+
     @Override
     public String toString() {
         return "BoredAction{" +

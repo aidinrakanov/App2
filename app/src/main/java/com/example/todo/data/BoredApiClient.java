@@ -23,11 +23,15 @@ public class BoredApiClient {
     public void getAction(
             String type,
             Float minPrice,
+            Float maxPrice,
+            Float minaccessibility,
+            Float maxaccessibility,
+
             BoredActionCallback callback
     ) {
         Call<BoredAction> call = client.getAction(
                 type,
-                minPrice
+                minPrice,maxPrice,minaccessibility,maxaccessibility
         );
 
         Log.d("ololo", call.request().url().toString());
@@ -66,7 +70,10 @@ public class BoredApiClient {
         @GET("api/activity/")
         Call<BoredAction> getAction(
                 @Query("type") String type,
-                @Query("minprice") Float minPrice
+                @Query("minPrice") Float minPrice,
+                @Query("maxPrice") Float maxPrice,
+                @Query("minaccessibility") Float minAccessibility,
+                @Query("maxaccessibility") Float maxAccessibility
         );
     }
 }
