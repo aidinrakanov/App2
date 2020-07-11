@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_main"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.main.MainFragment">
+    <FrameLayout
+        android:id="@+id/frame_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="32dp"
+            app:layout_constraintTop_toTopOf="parent" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/category_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button_rounded_gradient"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="Category"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/frame_card_view" />
+
+    <TextView
+        android:id="@+id/middle_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="Explore the nightlife of\n  your city"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/category_text" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="100dp"
+        android:layout_height="10dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/next_btn"
+        android:layout_marginBottom="160dp"
+        android:layout_marginRight="20dp"
+        android:progressDrawable="@drawable/gradient_progress_bar"
+        />
+    <TextView
+        android:id="@+id/access_text_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/price_text_small"
+        app:layout_constraintRight_toRightOf="@+id/progress_bar"
+        app:layout_constraintLeft_toLeftOf="@+id/progress_bar"
+        android:text="Accessibility"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/price_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/next_btn"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="150dp"
+        android:text="Free"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        />
+
+    <TextView
+        android:id="@+id/participant_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/participant_image"
+        app:layout_constraintRight_toRightOf="@id/participant_image"
+        app:layout_constraintTop_toBottomOf="@id/participant_image"
+        android:text="Participant"
+        android:textColor="#000000"
+        />
+
+    <TextView
+        android:id="@+id/price_text_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="@id/price_text"
+        app:layout_constraintLeft_toLeftOf="@id/price_text"
+        app:layout_constraintTop_toBottomOf="@id/price_text"
+        android:textColor="#000000"
+        android:text="Price" />
+
+    <ImageView
+        android:id="@+id/participant_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/access_text_01"
+        app:layout_constraintLeft_toLeftOf="@id/price_text"
+        app:layout_constraintRight_toRightOf="@id/progress_bar"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_user_four"/>
+
+    <com.like.LikeButton
+        android:id="@+id/img_heart"
+        app:icon_size="13dp"
+        app:icon_type="heart"
+        app:like_drawable="@drawable/heart_on"
+        app:unlike_drawable="@drawable/heart_off"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        app:liked="false"
+        app:dots_primary_color="@color/colorAccent"
+        app:dots_secondary_color="@color/colorPrimary"
+        app:circle_end_color="@color/colorAccent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/button_rounded"
+        android:text="N E X T"
+        android:onClick="next_click"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.slider.RangeSlider
+        app:thumbColor="#D1F178"
+        app:trackColorActive="#FFFFFF"
+        android:id="@+id/range_bar_price"
+        app:values="@array/slider_val"
+        app:trackColorInactive="#88BF3B"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:layout_constraintRight_toRightOf="@id/next_btn"
+        app:layout_constraintTop_toBottomOf="@id/next_btn"
+        />
+
+    <com.google.android.material.slider.RangeSlider
+        app:thumbColor="#D1F178"
+        app:trackColorActive="#FFFFFF"
+        app:trackColorInactive="#88BF3B"
+        app:values="@array/slider_val"
+        android:id="@+id/range_bar_acces"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintRight_toRightOf="@id/next_btn"
+        app:layout_constraintTop_toBottomOf="@id/range_bar_price"
+        />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/spinner_round"
+        app:layout_constraintLeft_toLeftOf="@id/next_btn"
+        app:layout_constraintTop_toBottomOf="@id/next_btn"
+        android:entries="@array/type"
+        android:contextClickable="true"/>
+
+    <TextView
+        android:id="@+id/category_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/spinner"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp"
+        android:text="Category" />
+
+    <TextView
+        android:id="@+id/range_bar_price_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/range_bar_price"
+        app:layout_constraintBottom_toTopOf="@+id/range_bar_price"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:text="Price" />
+
+    <TextView
+        android:id="@+id/range_bar_acces_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/range_bar_acces"
+        app:layout_constraintBottom_toTopOf="@+id/range_bar_acces"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:text="Accessibility" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

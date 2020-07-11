@@ -1,45 +1,36 @@
 package com.example.todo.presentation.main;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.todo.App;
 import com.example.todo.R;
-import com.example.todo.data.BoredApiClient;
 import com.example.todo.model.BoredAction;
-import com.google.android.material.slider.RangeSlider;
+import com.example.todo.presentation.favorites.FavoritesFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView category_text, category_spinner_text, middle_text, price_text,
-            price_small, price_range_bar_text, access_text, access_range_bar_text, participant_text;
-    private ImageView participant_image, heart_image;
-    private RangeSlider access_range_bar, price_range_bar;
-    private ProgressBar progressBar;
-    private Spinner spinner;
-    private Button next_bt;
-    List<Float> price_bar;
-    private Float minPrice;
-    private Float maxPrice;
-    List<Float> access_bar;
-    private Float minAccess;
-    private Float maxAccess;
-
+    BottomNavigationView navigationView;
+    Button favorites_bt, home_bt;
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
@@ -49,84 +40,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Id();
-        App.prefs.isShown();
-        PriceChange();
-        AccessChange();
+        navigationView = findViewById(R.id.bottom_navigation);
+//        App.prefs.isShown();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_favorite)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_controller);
+        NavigationUI.setupWithNavController(navigationView, navController);
 
     }
 
-    private void Id() {
-        next_bt = findViewById(R.id.next_btn);
-        spinner = findViewById(R.id.spinner);
-        access_range_bar = findViewById(R.id.range_bar_acces);
-        progressBar = findViewById(R.id.progress_bar);
-        access_text = findViewById(R.id.access_text_01);
-        access_range_bar_text = findViewById(R.id.range_bar_acces_text);
-        price_range_bar = findViewById(R.id.range_bar_price);
-        price_range_bar_text = findViewById(R.id.range_bar_price_text);
-        price_text = findViewById(R.id.price_text);
-        price_small = findViewById(R.id.price_text_small);
-        participant_text = findViewById(R.id.participant_text);
-        participant_image = findViewById(R.id.participant_image);
-        category_text = findViewById(R.id.category_text);
-        category_spinner_text = findViewById(R.id.category_small);
-        middle_text = findViewById(R.id.middle_text);
-        heart_image = findViewById(R.id.img_heart);
-    }
-
-    public void next_click(View view) {
-        App.boredApiClient.getAction(null, minPrice, maxPrice,
-                minAccess,maxAccess, new BoredApiClient.BoredActionCallback() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onSuccess(BoredAction boredAction) {
-                price_text.setText(boredAction.getPrice().toString()+"$");
-                middle_text.setText(boredAction.getActivity());
-                category_text.setText(boredAction.getType());
-                progressBar.setProgress((int)(boredAction.getAccessibility()*100), true);
-                switch (boredAction.getParticipants()){
-                    case 1:
-                        participant_image.setImageResource(R.drawable.ic_user);
-                        break;
-                    case 2:
-                        participant_image.setImageResource(R.drawable.ic_user_two);
-                        break;
-                    case 3:
-                        participant_image.setImageResource(R.drawable.ic_user_three);
-                        break;
-                    case 4:
-                        participant_image.setImageResource(R.drawable.ic_user_four);
-                        break;
-                }
-            }
-
-            @Override
-            public void onFailure(Exception exception) {
-                Log.d("ololo", exception.getMessage());
-            }
-        });
-
-    }
-    public void PriceChange(){
-        price_range_bar.addOnChangeListener(new RangeSlider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                price_bar = slider.getValues();
-                minPrice = price_bar.get(0);
-                maxPrice = price_bar.get(1);
-            }
-        });
-    }
-    public void AccessChange(){
-        access_range_bar.addOnChangeListener(new RangeSlider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                access_bar = slider.getValues();
-                minAccess = access_bar.get(0);
-                maxAccess = access_bar.get(1);
-            }
-        });
-    }
 }
+
 
