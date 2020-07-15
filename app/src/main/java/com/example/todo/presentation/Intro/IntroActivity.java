@@ -36,7 +36,7 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MainActivity.start(IntroActivity.this);
-//                saveIsShown();
+                saveIsShown();
                 finish();
             }
         });
@@ -61,11 +61,11 @@ public class IntroActivity extends AppCompatActivity {
                 } }});
     }
 
-//    private void saveIsShown() {
-//        SharedPrefs sp = new SharedPrefs(this);
-//            sp.saveIsShown();
-//
-//    }
+    private void saveIsShown() {
+        SharedPrefs sp = new SharedPrefs(this);
+            sp.saveIsShown();
+
+    }
 
 
     private void nexxt() {

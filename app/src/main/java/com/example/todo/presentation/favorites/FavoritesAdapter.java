@@ -86,7 +86,20 @@ public class FavoritesAdapter extends RecyclerView.Adapter <FavoritesAdapter.Vie
         public void bind(BoredAction boredAction) {
             middle_text.setText(boredAction.getActivity());
             price_text.setText(boredAction.getPrice().toString());
-            participant_image.setImageResource(boredAction.getParticipants());
+            switch (boredAction.getParticipants()) {
+                case 1:
+                    participant_image.setImageResource(R.drawable.ic_user);
+                    break;
+                case 2:
+                    participant_image.setImageResource(R.drawable.ic_user_two);
+                    break;
+                case 3:
+                    participant_image.setImageResource(R.drawable.ic_user_three);
+                    break;
+                case 4:
+                    participant_image.setImageResource(R.drawable.ic_user_four);
+                    break;
+            }
             progressBar.setProgress((int) (boredAction.getAccessibility() * 100), true);
             category_text.setText(boredAction.getType());
 

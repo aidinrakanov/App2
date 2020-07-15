@@ -16,15 +16,15 @@ public class App extends Application {
     public static BoredApiClient boredApiClient;
     private static BoredDatabase boredDatabase;
     public static BoredStorage boredStorage;
-//    public static App instance;
+    public static App instance;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
-//        prefs = new SharedPrefs(this);
+        prefs = new SharedPrefs(this);
         boredApiClient = new BoredApiClient();
-//        instance = this;
+        instance = this;
         boredDatabase = Room.databaseBuilder(
                         this,
                         BoredDatabase.class,
@@ -36,9 +36,13 @@ public class App extends Application {
         boredStorage = new BoredStorage(boredDatabase.boredDao());
             }
 
-//        public BoredDatabase getDatabase() {
-//        return boredDatabase;
-//    }
-
+    public static App getInstance() {
+        return instance;
     }
 
+    public BoredDatabase getDatabase() {
+        return boredDatabase;
+    }
+
+
+    }

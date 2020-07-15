@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,7 @@ import com.example.todo.data.local.BoredStorage;
 import com.example.todo.model.BoredAction;
 import com.google.android.material.slider.RangeSlider;
 import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,8 @@ public class FavoritesFragment extends Fragment {
     private int pos;
     private FavoritesAdapter adapter;
     private ArrayList<BoredAction> list = new ArrayList<>();
-    LikeButton likeButton;
+    LikeButton likeB;
+    BoredAction boredAction;
 
     public FavoritesFragment() {
     }
@@ -58,13 +61,43 @@ public class FavoritesFragment extends Fragment {
         adapter = new FavoritesAdapter(list);
         recyclerView.setAdapter(adapter);
 
+        likeB = view.findViewById(R.id.img_heart_Fav);
         adapter.FavoritesAdapter(new Click_Interface() {
             @Override
             public void onItemClick(int pos) {
                 App.boredStorage.deleteBoredAction(list.get(pos));
+                list.remove(pos);
+                adapter.notifyDataSetChanged();
             }
         });
+//        loadData();
+        toRemove();
+    }
 
+    private void toRemove() {
+        if (likeB != null)
+        { likeB.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                App.boredStorage.deleteBoredAction(boredAction);
+            }
+        });
+        }
 
     }
+
+//    private void loadData() {
+//        App.getInstance().getDatabase().boredDao().getAllLive().observe(this, new Observer<List<BoredAction>>() {
+//            @Override
+//            public void onChanged(List<BoredAction> boredActions) {
+//                list.clear();
+//                list.addAll(boredActions);
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
+//    }
 }

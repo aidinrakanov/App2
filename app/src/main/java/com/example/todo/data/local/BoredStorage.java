@@ -1,5 +1,8 @@
 package com.example.todo.data.local;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+
 import com.example.todo.model.BoredAction;
 
 import java.util.List;
@@ -12,8 +15,9 @@ public class BoredStorage {
         this.dao = dao;
     }
 
+
     public void saveBoredAction(BoredAction boredAction){
-        dao.insert(boredAction);
+            dao.insert(boredAction);
     }
 
     public BoredAction boredAction(String key){
@@ -22,6 +26,10 @@ public class BoredStorage {
 
     public List<BoredAction> getAllActions(){
         return dao.getAll();
+    }
+
+    public LiveData<List<BoredAction>> getAllLive(){
+        return dao.getAllLive();
     }
 
     public void deleteBoredAction(BoredAction boredAction){

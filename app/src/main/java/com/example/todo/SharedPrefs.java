@@ -9,11 +9,11 @@ public class SharedPrefs {
     static SharedPreferences sharedPreferences;
 
 
-//    public SharedPrefs(Context context) {
-//        sharedPreferences = context.getSharedPreferences
-//                ("settings", Context.MODE_PRIVATE);
-//
-//    }
+    public SharedPrefs(Context context) {
+        sharedPreferences = context.getSharedPreferences
+                ("settings", Context.MODE_PRIVATE);
+
+    }
 
     public void saveIsShown() {
         sharedPreferences.edit().putBoolean(SETTINGS_SP, false).apply();

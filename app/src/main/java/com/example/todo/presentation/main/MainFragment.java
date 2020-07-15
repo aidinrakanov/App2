@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import com.example.todo.R;
 import com.example.todo.data.BoredApiClient;
 import com.example.todo.model.BoredAction;
 import com.google.android.material.slider.RangeSlider;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import java.util.List;
 
@@ -42,7 +45,10 @@ public class MainFragment extends Fragment {
     private Float minAccess;
     private Float maxAccess;
     String type;
-    BoredAction boredAction;
+    BoredAction boredAction_model;
+    LikeButton likeButton;
+    SavedState state;
+
 
 
     public MainFragment() {
@@ -52,12 +58,13 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main, container, false);
+
+
     }
 
     @Override
@@ -73,8 +80,22 @@ public class MainFragment extends Fragment {
                 next_click();
             }
         });
+        addToFavorite();
     }
 
+    private void addToFavorite() {
+        likeButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                App.boredStorage.saveBoredAction(boredAction_model);
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                App.boredStorage.deleteBoredAction(boredAction_model);
+            }
+        });
+    }
 
     private void Id(View view) {
         next_bt = view.findViewById(R.id.next_btn);
@@ -86,6 +107,7 @@ public class MainFragment extends Fragment {
         participant_image = view.findViewById(R.id.participant_image);
         category_text = view.findViewById(R.id.category_text);
         middle_text = view.findViewById(R.id.middle_text);
+        likeButton = view.findViewById(R.id.img_heart);
     }
 
     public void next_click() {
@@ -98,12 +120,7 @@ public class MainFragment extends Fragment {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onSuccess(BoredAction boredAction) {
-                        App.boredStorage.saveBoredAction(boredAction);
-                        Log.d("ololo", "recieve" + boredAction.toString());
-                        for (BoredAction action : App.boredStorage.getAllActions()) {
-                            Log.d("ololo", action.toString());
-                        }
-
+                        boredAction_model = boredAction;
                         price_text.setText(boredAction.getPrice().toString() + "$");
                         middle_text.setText(boredAction.getActivity());
                         category_text.setText(boredAction.getType());
@@ -122,6 +139,7 @@ public class MainFragment extends Fragment {
                                 participant_image.setImageResource(R.drawable.ic_user_four);
                                 break;
                         }
+
                     }
 
                     @Override
