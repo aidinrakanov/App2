@@ -41,6 +41,10 @@ public class FavoritesFragment extends Fragment {
     public FavoritesFragment() {
     }
 
+    public static Fragment newInstance() {
+        return new FavoritesFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +61,9 @@ public class FavoritesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.favor_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        list.addAll(App.boredStorage.getAllActions());
+
         adapter = new FavoritesAdapter(list);
         recyclerView.setAdapter(adapter);
-
         likeB = view.findViewById(R.id.img_heart_Fav);
         adapter.FavoritesAdapter(new Click_Interface() {
             @Override
@@ -72,23 +75,43 @@ public class FavoritesFragment extends Fragment {
         });
 //        loadData();
         toRemove();
+        loadData2();
     }
 
     private void toRemove() {
-        if (likeB != null)
-        { likeB.setOnLikeListener(new OnLikeListener() {
-            @Override
-            public void liked(LikeButton likeButton) {
-            }
+        if (likeB != null) {
+            likeB.setOnLikeListener(new OnLikeListener() {
+                @Override
+                public void liked(LikeButton likeButton) {
+                }
 
-            @Override
-            public void unLiked(LikeButton likeButton) {
-                App.boredStorage.deleteBoredAction(boredAction);
-            }
-        });
+                @Override
+                public void unLiked(LikeButton likeButton) {
+                    App.boredStorage.deleteBoredAction(boredAction);
+                }
+            });
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData2();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        loadData2();
+    }
+
+    private void loadData2() {
+        list.clear();
+        list.addAll(App.boredStorage.getAllActions());
+        adapter.notifyDataSetChanged();
 
     }
+}
 
 //    private void loadData() {
 //        App.getInstance().getDatabase().boredDao().getAllLive().observe(this, new Observer<List<BoredAction>>() {
@@ -100,4 +123,3 @@ public class FavoritesFragment extends Fragment {
 //            }
 //        });
 //    }
-}

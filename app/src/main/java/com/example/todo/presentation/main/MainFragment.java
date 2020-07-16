@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.todo.App;
 import com.example.todo.R;
@@ -47,11 +48,16 @@ public class MainFragment extends Fragment {
     String type;
     BoredAction boredAction_model;
     LikeButton likeButton;
-    SavedState state;
+    String key_like;
+
 
 
 
     public MainFragment() {
+    }
+
+    public static Fragment newInstance() {
+        return new MainFragment();
     }
 
     @Override
@@ -111,6 +117,7 @@ public class MainFragment extends Fragment {
     }
 
     public void next_click() {
+        likeButton.setLiked(false);
         if (type!= null){
             if (type.equals("all")){
                 type=null;}
@@ -120,24 +127,38 @@ public class MainFragment extends Fragment {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onSuccess(BoredAction boredAction) {
-                        boredAction_model = boredAction;
-                        price_text.setText(boredAction.getPrice().toString() + "$");
-                        middle_text.setText(boredAction.getActivity());
-                        category_text.setText(boredAction.getType());
-                        progressBar.setProgress((int) (boredAction.getAccessibility() * 100), true);
-                        switch (boredAction.getParticipants()) {
-                            case 1:
-                                participant_image.setImageResource(R.drawable.ic_user);
-                                break;
-                            case 2:
-                                participant_image.setImageResource(R.drawable.ic_user_two);
-                                break;
-                            case 3:
-                                participant_image.setImageResource(R.drawable.ic_user_three);
-                                break;
-                            case 4:
-                                participant_image.setImageResource(R.drawable.ic_user_four);
-                                break;
+                        try {
+                            boredAction_model = boredAction;
+                            key_like = boredAction.getKey();
+                            price_text.setText(boredAction.getPrice().toString() + "$");
+                            middle_text.setText(boredAction.getActivity());
+                            category_text.setText(boredAction.getType());
+                            progressBar.setProgress((int) (boredAction.getAccessibility() * 100), true);
+                            switch (boredAction.getParticipants()) {
+                                case 1:
+                                    participant_image.setImageResource(R.drawable.ic_user);
+                                    break;
+                                case 2:
+                                    participant_image.setImageResource(R.drawable.ic_user_two);
+                                    break;
+                                case 3:
+                                    participant_image.setImageResource(R.drawable.ic_user_three);
+                                    break;
+                                case 4:
+                                    participant_image.setImageResource(R.drawable.ic_user_four);
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            price_text.setText("");
+                            middle_text.setText("Press Next button");
+                            category_text.setText("");
+                            progressBar.setProgress(0);
+                            Toast.makeText(getContext(), "Press 'Next'", Toast.LENGTH_SHORT).show();
+                        }
+
+                        BoredAction bored_model = App.boredStorage.boredAction(key_like);
+                        if(bored_model != null){
+                            likeButton.setLiked(true);
                         }
 
                     }

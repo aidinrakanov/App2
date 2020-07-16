@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -32,6 +33,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView navigationView;
+    private ViewPager viewPager;
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
@@ -43,13 +45,68 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         navigationView = findViewById(R.id.bottom_navigation);
         App.prefs.isShown();
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_favorite)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_controller);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
+        viewPager = findViewById(R.id.viewPager_main);
+        NavigationViewPager();
+//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.navigation_home, R.id.navigation_favorite)
+//                .build();
+//        NavController navController = Navigation.findNavController(this, R.id.nav_controller);
+//        NavigationUI.setupWithNavController(navigationView, navController);
     }
+    private void NavigationViewPager() {
+        viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
+        viewPager.setOffscreenPageLimit(2);
+        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        viewPager.setCurrentItem(0,false);
+                        break;
+                    case R.id.navigation_favorite:
+                        viewPager.setCurrentItem(1,false);
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    public class MainPagerAdapter extends FragmentPagerAdapter {
+
+        public MainPagerAdapter(@NonNull FragmentManager fm, int behavior) {
+            super(fm, behavior);
+        }
+
+        public MainPagerAdapter(@NonNull FragmentManager fm) {
+            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        }
+
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment;
+            switch (position) {
+                case 0:
+                    fragment = MainFragment.newInstance();
+                    break;
+                case 1:
+                    fragment = FavoritesFragment.newInstance();
+                    break;
+                default:
+                    fragment = MainFragment.newInstance();
+                    break;
+            }
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    }
+
 }
 
 
