@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.todo.App;
 import com.example.todo.R;
 import com.example.todo.data.BoredApiClient;
@@ -33,7 +34,8 @@ import java.util.List;
 
 
 public class MainFragment extends Fragment {
-    private TextView category_text, middle_text, price_text;
+    private TextView category_text, middle_text, price_text,
+            price_text_small, access_text, participant_text;
     private ImageView participant_image;
     private RangeSlider access_range_bar, price_range_bar;
     private ProgressBar progressBar;
@@ -49,6 +51,7 @@ public class MainFragment extends Fragment {
     BoredAction boredAction_model;
     LikeButton likeButton;
     String key_like;
+    LottieAnimationView lottie;
 
 
 
@@ -115,10 +118,14 @@ public class MainFragment extends Fragment {
         progressBar = view.findViewById(R.id.progress_bar);
         price_range_bar = view.findViewById(R.id.range_bar_price);
         price_text = view.findViewById(R.id.price_text);
+        price_text_small = view.findViewById(R.id.price_text_small);
+        access_text = view.findViewById(R.id.access_text_01);
+        participant_text = view.findViewById(R.id.participant_text);
         participant_image = view.findViewById(R.id.participant_image);
         category_text = view.findViewById(R.id.category_text);
         middle_text = view.findViewById(R.id.middle_text);
         likeButton = view.findViewById(R.id.img_heart);
+        lottie = view.findViewById(R.id.lottie_load);
     }
 
     public void next_click() {
@@ -127,14 +134,14 @@ public class MainFragment extends Fragment {
             if (type.equals("all")){
                 type=null;}
         }
-
+            progress_load();
         App.boredApiClient.getAction(type, minPrice, maxPrice,
                 minAccess, maxAccess, new BoredApiClient.BoredActionCallback() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onSuccess(BoredAction boredAction) {
-
                         try {
+                            progress_loaded();
                             boredAction_model = boredAction;
                             key_like = boredAction.getKey();
                             price_text.setText(boredAction.getPrice().toString() + "$");
@@ -176,6 +183,32 @@ public class MainFragment extends Fragment {
                         Log.d("ololo", exception.getMessage());
                     }
                 });
+    }
+
+    private void progress_loaded() {
+        lottie.setVisibility(View.GONE);
+        category_text.setVisibility(View.VISIBLE);
+        middle_text.setVisibility(View.VISIBLE);
+        price_text.setVisibility(View.VISIBLE);
+        price_text_small.setVisibility(View.VISIBLE);
+        participant_text.setVisibility(View.VISIBLE);
+        access_text.setVisibility(View.VISIBLE);
+        participant_image.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+        likeButton.setVisibility(View.VISIBLE);
+    }
+
+    private void progress_load() {
+        lottie.setVisibility(View.VISIBLE);
+        category_text.setVisibility(View.GONE);
+        middle_text.setVisibility(View.GONE);
+        price_text.setVisibility(View.GONE);
+        price_text_small.setVisibility(View.GONE);
+        participant_text.setVisibility(View.GONE);
+        access_text.setVisibility(View.GONE);
+        participant_image.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
+        likeButton.setVisibility(View.GONE);
     }
 
     private void ChangeColor() {
