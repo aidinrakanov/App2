@@ -4,4 +4,13 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="Dots">#B83CCD</color>
+    <color name="diy">#DC16FD</color>
+    <color name="music">#02335E</color>
+    <color name="education">#06810B</color>
+    <color name="recreational">#93043F</color>
+    <color name="social">#044B83</color>
+    <color name="charity">#B34D08</color>
+    <color name="cooking">#FFC107</color>
+    <color name="relaxation">#07D5EF</color>
+    <color name="busywork">#C50202</color>
 </resources>

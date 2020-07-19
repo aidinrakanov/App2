@@ -93,7 +93,12 @@ public class MainFragment extends Fragment {
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                App.boredStorage.saveBoredAction(boredAction_model);
+                try {
+                    App.boredStorage.saveBoredAction(boredAction_model);
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "Press 'NEXT'", Toast.LENGTH_SHORT).show();
+                    likeButton.setLiked(false);
+                }
             }
 
             @Override
@@ -122,17 +127,20 @@ public class MainFragment extends Fragment {
             if (type.equals("all")){
                 type=null;}
         }
+
         App.boredApiClient.getAction(type, minPrice, maxPrice,
                 minAccess, maxAccess, new BoredApiClient.BoredActionCallback() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onSuccess(BoredAction boredAction) {
+
                         try {
                             boredAction_model = boredAction;
                             key_like = boredAction.getKey();
                             price_text.setText(boredAction.getPrice().toString() + "$");
                             middle_text.setText(boredAction.getActivity());
                             category_text.setText(boredAction.getType());
+                            ChangeColor();
                             progressBar.setProgress((int) (boredAction.getAccessibility() * 100), true);
                             switch (boredAction.getParticipants()) {
                                 case 1:
@@ -150,10 +158,10 @@ public class MainFragment extends Fragment {
                             }
                         } catch (Exception e) {
                             price_text.setText("");
-                            middle_text.setText("Press Next button");
+                            middle_text.setText("Change Parameters");
                             category_text.setText("");
                             progressBar.setProgress(0);
-                            Toast.makeText(getContext(), "Press 'Next'", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Change Parameters", Toast.LENGTH_SHORT).show();
                         }
 
                         BoredAction bored_model = App.boredStorage.boredAction(key_like);
@@ -168,6 +176,18 @@ public class MainFragment extends Fragment {
                         Log.d("ololo", exception.getMessage());
                     }
                 });
+    }
+
+    private void ChangeColor() {
+        if (category_text.getText().equals("education")){ category_text.setBackgroundResource(R.color.education); }
+        if (category_text.getText().equals("recreational")){ category_text.setBackgroundResource(R.color.recreational); }
+        if (category_text.getText().equals("social")){ category_text.setBackgroundResource(R.color.social); }
+        if (category_text.getText().equals("diy")){ category_text.setBackgroundResource(R.color.diy); }
+        if (category_text.getText().equals("charity")){ category_text.setBackgroundResource(R.color.charity); }
+        if (category_text.getText().equals("cooking")){ category_text.setBackgroundResource(R.color.cooking); }
+        if (category_text.getText().equals("relaxation")){ category_text.setBackgroundResource(R.color.relaxation); }
+        if (category_text.getText().equals("music")){ category_text.setBackgroundResource(R.color.music); }
+        if (category_text.getText().equals("busywork")){ category_text.setBackgroundResource(R.color.busywork); }
     }
 
     public void PriceChange() {
