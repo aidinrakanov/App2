@@ -1,5 +1,6 @@
 package com.example.todo.presentation.main;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -54,8 +57,6 @@ public class MainFragment extends Fragment {
     LottieAnimationView lottie;
 
 
-
-
     public MainFragment() {
     }
 
@@ -79,6 +80,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final Animation myAnim = AnimationUtils.loadAnimation
+                (getContext(), R.anim.milkshake);
         Id(view);
         spinnerSelect();
         PriceChange();
@@ -87,6 +90,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 next_click();
+                v.startAnimation(myAnim);
             }
         });
         addToFavorite();
@@ -134,6 +138,7 @@ public class MainFragment extends Fragment {
             if (type.equals("all")){
                 type=null;}
         }
+
             progress_load();
         App.boredApiClient.getAction(type, minPrice, maxPrice,
                 minAccess, maxAccess, new BoredApiClient.BoredActionCallback() {

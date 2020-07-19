@@ -28,6 +28,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FavoritesFragment extends Fragment {
@@ -108,6 +109,7 @@ public class FavoritesFragment extends Fragment {
     private void loadData2() {
         list.clear();
         list.addAll(App.boredStorage.getAllActions());
+        Collections.reverse(list);
         adapter.notifyDataSetChanged();
 
     }
