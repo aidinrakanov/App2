@@ -29,9 +29,22 @@ ____
    ```implementation 'com.squareup.retrofit2:retrofit:2.7.1'```
    
    ```implementation 'com.google.android.material:material:1.3.0-alpha01```
-      
+   
+> ### Material Design
+это стиль графического дизайна интерфейсов программного обеспечения и приложений,
+
+  ```implementation 'com.google.android.material:material:1.3.0-alpha01'```
+  
 > ### LikeButton
-это библиотека, которая позволяет нам создавать кнопки с анимационными эффектами,
+это библиотека, которая позволяет нам создавать кнопки с анимационными эффектами
 
   ```implementation 'com.github.jd-alexander:LikeButton:0.2.3'```
+  
+  > ### Room
+это высокоуровневый интерфейс для низкоуровневых привязок SQLite, встроенных в Android
+
+  ```def room_version = "2.2.5" ```
+  
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"'```
 
